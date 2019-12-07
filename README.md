@@ -19,7 +19,7 @@ src
 - components
   - CenterMessage.js
 - index.js
-- theme.j
+- theme.js
 
 ### - 각 컴퍼넌트의 역할
 - index.js: 네비게이션 설정
@@ -31,3 +31,15 @@ src
 - Theme: 앱 전체의 테마를 지정하는 스타일 컴퍼넌트이다.
 
 
+### 컴퍼넌트별 주요 기능코드 설명
+#### Index.js
+```js
+
+
+```
+
+#### App.js
+```js
+
+
+```
