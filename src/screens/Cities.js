@@ -3,9 +3,11 @@ import {View, StyleSheet, Text, TextInput} from 'react-native';
 
 export default class Cities extends Component {
   render() {
+    const {cities} = this.props.screenProps;
+    console.log('cities.props', cities);
     return (
       <View style={styles.container}>
-        <Text style={styles.text}> Here is Cities Screen</Text>
+        <Text style={styles.text}>{cities[0].city}</Text>
       </View>
     );
   }
