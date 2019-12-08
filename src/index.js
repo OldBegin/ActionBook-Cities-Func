@@ -18,6 +18,8 @@ const StackNavi = createStackNavigator(
     navigationOptions: {
       headerStyle: {
         backgroundColor: colors.primary,
+        textAlign: 'center',
+        justifyContents: 'center',
       },
       headerTintColor: '#fff',
     },
