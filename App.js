@@ -4,25 +4,21 @@ import {StyleSheet, Text, View} from 'react-native';
 import AppNavi from './src';
 
 export default class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     cities: [],
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      cities: [],
+    };
+  }
 
-  state = {
-    cities: [],
-  };
-  // 새로운 도시를 추가하는 메소드
-  _AddCity = city => {
+  _addCity = city => {
     const cities = this.state.cities;
     cities.push(city);
     this.setState({cities});
   };
 
   // 대상도시와 추가할 관광지를 인수로 받아서 해당도시에 관광지를 추가한다.
-  _AddLocation = (location, city) => {
+  _addLocation = (location, city) => {
     const index = this.state.cities.findIndex(_city => {
       //인수로 받은 city와 동일한 id를 가진 대상도시를 cities에서 찾아 그 id를 받아온다.
       return _city.id === city.id;
@@ -42,12 +38,13 @@ export default class App extends Component {
   };
 
   render() {
+    console.log('App.State:', this.state);
     return (
       <AppNavi
         screenProps={{
           cities: this.state.cities,
           addCity: this._addCity,
-          addLocation: this._AddLocation,
+          addLocation: this._addLocation,
         }}
       />
     );

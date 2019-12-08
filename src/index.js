@@ -27,8 +27,8 @@ const StackNavi = createStackNavigator(
 // Tab Navigator 생성하여 Cities 탭에는 Cities, City 두개의 스크린을 라우팅 지정하고
 // AddCity탭에는 AddCity 스크린 한개만 라우팅
 const TabNavi = createBottomTabNavigator({
-  도시리스트: StackNavi,
-  도시추가: AddCity,
+  CityList: StackNavi,
+  AddCity: AddCity,
 });
 
 const AppNavi = createAppContainer(TabNavi);
