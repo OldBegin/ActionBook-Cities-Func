@@ -20,13 +20,17 @@ export default class Cities extends Component {
       textAlign: 'center',
     },
   };
+
   _onMoveToCity = item => {
     console.log('onMoveToCity: ');
-    this.props.navigation.navigate('City', {cityInfo: item});
+    this.props.navigation.navigate('City', {city: item});
   };
 
   render() {
-    const {cities} = this.props.screenProps;
+    console.log('Cities rendering');
+    const {
+      screenProps: {cities},
+    } = this.props;
     return (
       <ScrollView>
         <View style={styles.container}>

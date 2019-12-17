@@ -1,6 +1,38 @@
 # Rn_ActionBook_Cities
 리엑트네이티브 액션북 PART2 네비게이션
-## react-navigation 용법
+
+## react-navigation 주요기능
+
+- this.props.navigation.navigate('라우팅위치') // 를 이용하여 페이지를 이동한다.
+- this.props.navigation.navigate('라우팅위치',{프롭스키:프롭스값}) // 의 두번째 인자로 프롭스를 전달할수 있다.
+- this.props.navigation.state.params // 를 이용하여 네비게이트의 두번째 인자로 전달된 프롭스값을 받는쪽에서 참조할수 있다.
+
+- 네비게이션을 사용하여 라우팅할 경우 최상단 부모컴퍼넌트에서는 (주로 App 컴퍼넌트) screenProps 를 통해 상태 및 메서드를 전달할 수있다.
+```js
+<AppNavi  //라우터 컴퍼넌트
+        screenProps={{
+          cities: this.state.cities,  // state
+          addCity: this._addCity,     // 메서드
+          addLocation: this._addLocation, // 메서드
+        }}
+/>
+```
+- 라우터컴퍼넌트(여기서는 .src/index.js)에 등록된 모든 컴퍼넌트는 이를 프롭스로 전달받으며,
+- this.props.screenProps 를 통해 사용할수 있다.
+   예) const {cities, addCity, addLocation} = this.props.screenProps;
+
+## 라이프사이클 메소드 shoudComponentUpdate 용법
+
+- 아래의 예와 같이 해당 컴퍼넌트의 state 또는 프롭스값을 선택하여 변경이 있을경우만 랜더링하도록 할 수 있다.
+```js
+shouldComponentUpdate(nextProps, nextState) {
+    const isChangedState = this.state !== nextState; //state 가 변경된 경우
+    const isChangedProps = this.props.navigation !== nextProps.navigation; //props.navigation 이 변경된경우
+    return isChangedState || isChangedProps;
+  }
+```
+
+
 
 ### - 라이브러리 설치
 - react-navigation 4.x by Book
@@ -13,13 +45,15 @@ yarn add uuid react-navigation react-navigation-stack react-navigation-tabs
 
 src
 - screen
-  - AddCity.js
-  - Cities.js
-  - City.js
+  - AddCity.js   // 도시와 국가를 등록하는 컴퍼넌트로서 두개의 TextInput 과 등록을 위한 TouchableOpacity 로 구성됨
+  - Cities.js  // AddCity에서 등록된 City 컴퍼넌트를 리스팅하는 리스트컴퍼넌트
+  - City.js  // Cities에서 리스팅된 도시를 클릭하면 이동되는 페이지이며, 여기서 관광지를 등록할 수 있다.
 - components
-  - CenterMessage.js
-- index.js
+  - CenterMessage.js //데이터가 없을때 보여주기 위한 컴퍼넌트
+- index.js : 라우터 컴퍼넌트 <AppNavi />
 - theme.js
+App : 최상단 부모컴퍼넌트로서 라우터 컴퍼넌트인 <AppNavi />만을 랜더링하며, 이를통해 모든 라우터에 등록된 자식컴퍼넌트에 데이터나 메소드를 전달할수 있도록 한다.
+
 
 ### - 각 컴퍼넌트의 역할
 - index.js: 네비게이션 설정
@@ -150,6 +184,8 @@ export default class App extends Component {
 ```
 
 #### Cities.js
+
+
 ```js
 
 ```

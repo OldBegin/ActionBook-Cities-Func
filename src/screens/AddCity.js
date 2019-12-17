@@ -17,11 +17,16 @@ export default class AddCity extends Component {
       country: '',
     };
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    const isChangedState = this.state !== nextState; //state 가 변경된 경우
+    const isChangedProps = this.props.navigation !== nextProps.navigation; //props.navigation 이 변경된경우
+    return isChangedState || isChangedProps;
+  }
   _onChangeText = (key, value) => {
     this.setState({[key]: value});
   };
   _onSubmit = () => {
-    console.log('in _onSubmit', this.props);
+    //console.log('in _onSubmit', this.props);
     if (!this.state.city || !this.state.country) {
       Alert.alert('도시와 국가를 입력해주세요');
     } else {
@@ -43,7 +48,7 @@ export default class AddCity extends Component {
   };
 
   render() {
-    console.log('addCity.state:', this.state);
+    console.log('addCity rendering:', this.props);
     return (
       <View style={styles.container}>
         <Text style={styles.text}> Cities</Text>
@@ -63,7 +68,10 @@ export default class AddCity extends Component {
           }}
           placeholder="Input country"
         />
-        <TouchableOpacity onPress={this._onSubmit}>
+        <TouchableOpacity
+          onPress={() => {
+            this._onSubmit();
+          }}>
           <View style={styles.submit}>
             <Text>도시추가</Text>
           </View>

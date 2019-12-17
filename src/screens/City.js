@@ -8,14 +8,23 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import uuidV4 from 'uuid/v4';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 export default class City extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      locName: '',
+      description: '',
+    };
+  }
+
   static navigationOptions = props => {
-    const {cityInfo} = props.navigation.state.params;
+    const {city} = props.navigation.state.params;
     return {
-      title: cityInfo.city,
+      title: city.city,
       headerTitleStyle: {
         fontSize: 18,
         color: 'black',
@@ -25,31 +34,62 @@ export default class City extends Component {
     };
   };
 
+  _onChangeText = (key, val) => {
+    this.setState({[key]: val});
+  };
+
+  _onSubmitt = () => {
+    console.log('state in onSubmit of city: ');
+    const {city} = this.props.navigation.state.params;
+    const location = {
+      uuid: uuidV4(),
+      locName: this.state.locName,
+      description: this.state.description,
+    };
+
+    this.props.screenProps.addLocation(location, city);
+
+    this.setState({
+      locName: '',
+      description: '',
+    });
+  };
+
   render() {
-    //console.log('in City: ', this.props.navigation.state.params.cityInfo.city);
-    const {cityInfo} = this.props.navigation.state.params;
+    const {city} = this.props.navigation.state.params;
+    console.log('props in city: ', this.props);
+    console.log('state in city: ', this.state);
+    //console.log('cityInfo in city: ', cityInfo);
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollContainer}>
-          <View style={styles.listContainer}>
-            <Text style={styles.text}>location 1</Text>
-          </View>
-          <View style={styles.listContainer}>
-            <Text style={styles.text}>location 1</Text>
-          </View>
+          {city.locations.map((location, index) => (
+            <View key={index} style={styles.listContainer}>
+              <Text style={styles.locationText}>{location.locName}</Text>
+              <Text style={styles.subText}>{location.description}</Text>
+            </View>
+          ))}
         </ScrollView>
         <View style={styles.inputContainer}>
           <TextInput
-            onChangeText={this.onChangeText}
+            onChangeText={val => {
+              this._onChangeText('locName', val);
+            }}
+            value={this.state.locName}
             style={styles.textInput}
             placeholder="관광지를 입력하세요"
           />
           <TextInput
-            onChangeText={this.onChangeText}
+            onChangeText={val => {
+              this._onChangeText('description', val);
+            }}
+            value={this.state.description}
             style={styles.textInput}
-            placeholder="관광지를 입력하세요"
+            placeholder="상세정보를 입력하세요"
           />
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this._onSubmitt()}>
             <Text>Add Location</Text>
           </TouchableOpacity>
         </View>
@@ -74,7 +114,6 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: 'white',
     marginHorizontal: 5,
     marginVertical: 2,
@@ -87,14 +126,21 @@ const styles = StyleSheet.create({
     width: width - 1,
     marginVertical: 5,
   },
-  list: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 3,
-    marginTop: 5,
-    marginHorizontal: 5,
-    width: width - 10,
-    backgroundColor: '#d8d8d8',
+  locationText: {
+    padding: 5,
+    paddingLeft: 10,
+    fontWeight: '400',
+    fontSize: 18,
+    color: '#5a5b5b',
+    textAlign: 'left',
+  },
+  subText: {
+    padding: 5,
+    paddingLeft: 10,
+    fontSize: 14,
+    color: '#5a5b5b',
+    textAlign: 'left',
+    fontWeight: '200',
   },
   textInput: {
     marginTop: 5,
