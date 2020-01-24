@@ -21,7 +21,7 @@ export default class App extends Component {
   _addLocation = (location, city) => {
     console.log('addLocation in App', location, city);
     const index = this.state.cities.findIndex(item => {
-      //인수로 받은 city와 동일한 id를 가진 대상도시를 cities에서 찾아 그 id를 받아온다.
+      //인 수로 받은 city와 동일한 id를 가진 대상도시를 cities에서 찾아 그 id를 받아온다.
       return item.uuid === city.uuid;
     });
     console.log('index: ', index);
@@ -29,9 +29,8 @@ export default class App extends Component {
     const foundCity = this.state.cities[index];
     foundCity.locations.push(location); // 대상도시에 관광지를 추가한다.
     console.log('foundCity', foundCity.uuid);
-    //추가할 도시의 id값을 중심으로 기존의 데이터를 쪼갠후 나열하여 cities에 다시 담는다.
     const cities = [
-      ...this.state.cities.slice(0, index),
+      ...this.state.cities.slice(0, index), //추가할 도시의 id값을 중심으로 기존의 데이터를 쪼갠후 나열하여 cities에 다시 담는다.
       foundCity,
       ...this.state.cities.slice(index + 1),
     ];

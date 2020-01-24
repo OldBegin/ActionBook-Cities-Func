@@ -3,9 +3,12 @@
 
 ## react-navigation 주요기능
 
-- this.props.navigation.navigate('라우팅위치') // 를 이용하여 페이지를 이동한다.
-- this.props.navigation.navigate('라우팅위치',{프롭스키:프롭스값}) // 의 두번째 인자로 프롭스를 전달할수 있다.
-- this.props.navigation.state.params // 를 이용하여 네비게이트의 두번째 인자로 전달된 프롭스값을 받는쪽에서 참조할수 있다.
+- 네비게이션을 이용하여 페이지 이동 및 프롭스를 전달
+```js
+this.props.navigation.navigate('<라우팅위치>') // 를 이용하여 페이지를 이동한다.
+this.props.navigation.navigate('<라우팅위치>',{프롭스키:프롭스값}) // 의 두번째 인자로 프롭스를 전달할수 있다.
+this.props.navigation.state.params // 를 이용하여 네비게이트의 두번째 인자로 전달된 프롭스값을 받는쪽에서 참조할수 있다.
+```   
 
 - 네비게이션을 사용하여 라우팅할 경우 최상단 부모컴퍼넌트에서는 (주로 App 컴퍼넌트) screenProps 를 통해 상태 및 메서드를 전달할 수있다.
 ```js
