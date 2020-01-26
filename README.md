@@ -57,6 +57,7 @@ shouldComponentUpdate(nextProps, nextState) {
 ```js
 yarn add react-native-gesture-handler react-native-reanimated
 yarn add uuid react-navigation react-navigation-stack react-navigation-tabs
+yarn add @react-native-community/async-storage //내장 async-storage 가 deprecated 되어 추후 따로 추가함.
 ```
 
 ### - 앱 구조
