@@ -1,4 +1,5 @@
-import React from 'react';
+//import React, { Component } from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -11,6 +12,13 @@ import {
 const {width} = Dimensions.get('window');
 
 const Cities = ({screenProps, navigation}) => {
+  console.log('Cities Screen!!!');
+  useEffect(() => {
+    console.log('Cities의 랜더링이 완료됨');
+    console.log('screenProps: ', screenProps);
+    console.log('navigation: ', navigation);
+  });
+
   Cities.navigationOptions = {
     title: 'CITY LIST',
     headerTitleStyle: {
@@ -22,12 +30,9 @@ const Cities = ({screenProps, navigation}) => {
   };
 
   const _onMoveToCity = item => {
-    console.log('onMoveToCity: ', navigation);
     navigation.navigate('City', {city: item});
   };
 
-  console.log('Cities rendering', screenProps.cities);
-  console.log('screenProps in Cities', screenProps.cities);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -48,6 +53,7 @@ const Cities = ({screenProps, navigation}) => {
   );
 };
 
+// 아래는 클래스형 컴포넌트이며 정상적으로 실행됨: 맨아래 export default ... 부분은 중복되므로 삭제하여야함.
 // export default class Cities extends Component {
 //   static navigationOptions = {
 //     title: 'CITY LIST',

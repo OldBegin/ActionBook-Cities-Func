@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
+//import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,17 +11,21 @@ import {
 import uuidV4 from 'uuid/v4';
 
 const AddCity = ({navigation, screenProps}) => {
-  //const [city, setCity] = useState();
+  useEffect(() => {
+    console.log('AddCity의 랜더링이 완료됨');
+    console.log('screenProps: ', screenProps);
+    console.log('navigation: ', navigation);
+  });
   const [cityNameInput, setCityNameInput] = useState();
   const [countryNameInput, setCountryNameInput] = useState();
 
-  const _onChangeCityText = value => {
+  const _onChangeCity = useCallback(value => {
     setCityNameInput(value);
-  };
+  }, []);
 
-  const _onChangeCountryText = value => {
+  const _onChangeCountry = useCallback(value => {
     setCountryNameInput(value);
-  };
+  }, []);
 
   const _onSubmit = () => {
     if (!cityNameInput || !countryNameInput) {
@@ -32,23 +37,21 @@ const AddCity = ({navigation, screenProps}) => {
         countryName: countryNameInput,
         locations: [],
       };
-      console.log('_city::: ', _city);
       screenProps.addCity(_city);
     }
     setCityNameInput('');
     setCountryNameInput('');
-    navigation.navigate('Cities');
-    console.log('navigation::: ', navigation);
+    navigation.navigate('Cities', {cityNameInput: ''});
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}> Cities</Text>
+      <Text style={styles.text}> Add City</Text>
       <TextInput
         style={styles.textInput}
         value={cityNameInput}
         onChangeText={value => {
-          _onChangeCityText(value);
+          _onChangeCity(value);
         }}
         placeholder="Input City"
       />
@@ -56,7 +59,7 @@ const AddCity = ({navigation, screenProps}) => {
         style={styles.textInput}
         value={countryNameInput}
         onChangeText={value => {
-          _onChangeCountryText(value);
+          _onChangeCountry(value);
         }}
         placeholder="Input country"
       />
@@ -72,6 +75,7 @@ const AddCity = ({navigation, screenProps}) => {
   );
 };
 
+// 아래는 클래스형 컴포넌트이며 정상적으로 실행됨: 맨아래 export default ... 부분은 중복되므로 삭제하여야함.
 // export default class AddCity extends Component {
 //   constructor(props) {
 //     super(props);
