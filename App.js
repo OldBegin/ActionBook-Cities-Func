@@ -15,6 +15,7 @@ export default class App extends Component {
     const cities = this.state.cities;
     cities.push(city);
     this.setState({cities});
+    console.log('state in App::', this.state);
   };
 
   // 대상도시와 추가할 관광지를 인수로 받아서 해당도시에 관광지를 추가한다.

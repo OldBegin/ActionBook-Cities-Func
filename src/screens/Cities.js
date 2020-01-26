@@ -22,15 +22,14 @@ export default class Cities extends Component {
   };
 
   _onMoveToCity = item => {
-    console.log('onMoveToCity: ');
+    console.log('onMoveToCity: ', this.props.navigation);
     this.props.navigation.navigate('City', {city: item});
   };
 
   render() {
-    console.log('Cities rendering');
-    const {
-      screenProps: {cities},
-    } = this.props;
+    const {cities} = this.props.screenProps;
+    console.log('Cities rendering', cities);
+    console.log('screenProps in Cities', this.props.screenProps.cities);
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -41,8 +40,8 @@ export default class Cities extends Component {
                 this._onMoveToCity(item);
               }}>
               <View style={styles.list}>
-                <Text style={styles.cityText}>{item.city}</Text>
-                <Text style={styles.countryText}>{item.country}</Text>
+                <Text style={styles.cityText}>{item.cityName}</Text>
+                <Text style={styles.countryText}>{item.countryName}</Text>
               </View>
             </TouchableOpacity>
           ))}
