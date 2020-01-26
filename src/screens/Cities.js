@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   View,
   StyleSheet,
@@ -10,8 +10,8 @@ import {
 
 const {width} = Dimensions.get('window');
 
-export default class Cities extends Component {
-  static navigationOptions = {
+const Cities = ({screenProps, navigation}) => {
+  Cities.navigationOptions = {
     title: 'CITY LIST',
     headerTitleStyle: {
       fontSize: 18,
@@ -21,35 +21,73 @@ export default class Cities extends Component {
     },
   };
 
-  _onMoveToCity = item => {
-    console.log('onMoveToCity: ', this.props.navigation);
-    this.props.navigation.navigate('City', {city: item});
+  const _onMoveToCity = item => {
+    console.log('onMoveToCity: ', navigation);
+    navigation.navigate('City', {city: item});
   };
 
-  render() {
-    const {cities} = this.props.screenProps;
-    console.log('Cities rendering', cities);
-    console.log('screenProps in Cities', this.props.screenProps.cities);
-    return (
-      <ScrollView>
-        <View style={styles.container}>
-          {cities.map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => {
-                this._onMoveToCity(item);
-              }}>
-              <View style={styles.list}>
-                <Text style={styles.cityText}>{item.cityName}</Text>
-                <Text style={styles.countryText}>{item.countryName}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
-    );
-  }
-}
+  console.log('Cities rendering', screenProps.cities);
+  console.log('screenProps in Cities', screenProps.cities);
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        {screenProps.cities.map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => {
+              _onMoveToCity(item);
+            }}>
+            <View style={styles.list}>
+              <Text style={styles.cityText}>{item.cityName}</Text>
+              <Text style={styles.countryText}>{item.countryName}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </ScrollView>
+  );
+};
+
+// export default class Cities extends Component {
+//   static navigationOptions = {
+//     title: 'CITY LIST',
+//     headerTitleStyle: {
+//       fontSize: 18,
+//       color: 'black',
+//       fontWeight: '400',
+//       textAlign: 'center',
+//     },
+//   };
+
+//   _onMoveToCity = item => {
+//     console.log('onMoveToCity: ', this.props.navigation);
+//     this.props.navigation.navigate('City', {city: item});
+//   };
+
+//   render() {
+//     const {cities} = this.props.screenProps;
+//     console.log('Cities rendering', cities);
+//     console.log('screenProps in Cities', this.props.screenProps.cities);
+//     return (
+//       <ScrollView>
+//         <View style={styles.container}>
+//           {cities.map((item, index) => (
+//             <TouchableOpacity
+//               key={index}
+//               onPress={() => {
+//                 this._onMoveToCity(item);
+//               }}>
+//               <View style={styles.list}>
+//                 <Text style={styles.cityText}>{item.cityName}</Text>
+//                 <Text style={styles.countryText}>{item.countryName}</Text>
+//               </View>
+//             </TouchableOpacity>
+//           ))}
+//         </View>
+//       </ScrollView>
+//     );
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -83,3 +121,5 @@ const styles = StyleSheet.create({
     fontWeight: '200',
   },
 });
+
+export default Cities;

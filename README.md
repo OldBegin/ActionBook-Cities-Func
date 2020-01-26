@@ -1,14 +1,28 @@
 # Rn_ActionBook_Cities
 리엑트네이티브 액션북 PART2 네비게이션
 
-## react-navigation 주요기능
+### 최근 변경내용
+- AddCity.js 를 함수형 컴퍼넌트로 리펙토링 완료함
+
+
+## react-navigation 주요기능(함수형컴 컴퍼넌트)
 
 - 네비게이션을 이용하여 페이지 이동 및 프롭스를 전달
+- 함수형 컴퍼넌트로 변경함에 따라 네비게이션 사용에 this.props를 사용하지 않음
+- 함수형 컴퍼넌트의 경우 프롭스를 인자로 전달 받으므로 this.props... 형태로 사용할 필요없다.
 ```js
-this.props.navigation.navigate('<라우팅위치>') // 를 이용하여 페이지를 이동한다.
-this.props.navigation.navigate('<라우팅위치>',{프롭스키:프롭스값}) // 의 두번째 인자로 프롭스를 전달할수 있다.
-this.props.navigation.state.params // 를 이용하여 네비게이트의 두번째 인자로 전달된 프롭스값을 받는쪽에서 참조할수 있다.
-```   
+addCity = ({screenProps,navigation}){
+  ...
+  navigation.navigate('<이동할 스크린>') // 이동할경우
+  navigation.navigate('<이동할 스크린>',{프롭스키:프롭스값}) // 이동하면서 두번째 인자값으로 프롭스를 전달할수 있다.
+  navigation.state.params // 를 이용하여 네비게이트의 두번째 인자로 전달된 프롭스값을 받는쪽에서 참조할수 있다.
+  screenProps.addCity(arg) // 스크린 프롭스로 전달된 메소드에 인자를 전달하는 예
+}
+// 아래는 클래스형 컴퍼넌트에서 navigation 사용할 경우임
+// this.props.navigation.navigate('<라우팅위치>') // 를 이용하여 페이지를 이동한다.
+// this.props.navigation.navigate('<라우팅위치>',{프롭스키:프롭스값}) // 의 두번째 인자로 프롭스를 전달할수 있다.
+// this.props.navigation.state.params // 를 이용하여 네비게이트의 두번째 인자로 전달된 프롭스값을 받는쪽에서 참조할수 있다.
+// ```   
 
 - 네비게이션을 사용하여 라우팅할 경우 최상단 부모컴퍼넌트에서는 (주로 App 컴퍼넌트) screenProps 를 통해 상태 및 메서드를 전달할 수있다.
 ```js
@@ -34,8 +48,6 @@ shouldComponentUpdate(nextProps, nextState) {
     return isChangedState || isChangedProps;
   }
 ```
-
-
 
 ### - 라이브러리 설치
 - react-navigation 4.x by Book
