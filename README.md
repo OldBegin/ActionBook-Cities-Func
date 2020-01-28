@@ -75,7 +75,7 @@ const App = () => {
     _loadFromStorage();
   }, []);
 
-  /////////////////////////////////////////////////// LOAD STATE(cities) FROM ASYNC STORAGE
+  /////////////////////////////////////////////////// FUNCTION OF LOAD STATE(cities) FROM ASYNC STORAGE
   const _loadFromStorage = async () => {
     try {
       const value = await AsyncStorage.getItem('CITIES');
@@ -89,7 +89,7 @@ const App = () => {
       console.log('loding was failed: ', error);
     }
   };
-  /////////////////////////////////////////////////// SAVE STATE(cities) TO ASYNC STORAGE
+  /////////////////////////////////////////////////// FUNCTION OF SAVE STATE(cities) TO ASYNC STORAGE
   const _saveToStorage = async _cities => {
     try {
       await AsyncStorage.setItem('CITIES', JSON.stringify(_cities));
@@ -98,21 +98,13 @@ const App = () => {
     }
   };
 
-  ///////////////////////////////////////////////// ADD CITY TO STATE AND ASYNC STORAGE
+  ///////////////////////////////////////////////// ADD CITY TO STATE AND SAVE TO ASYNC STORAGE
   const _addCity = city => {
     const _cities = cities;
     _cities.push(city);
     setCities(_cities);
     _saveToStorage(_cities);
   };
-
-  ///////////////////////////////////////////////// 대상도시와 추가할 관광지를 인수로 받아서 해당도시에 관광지를 추가한다.
-  const _addLocation = (location, city) => {
-    const index = cities.findIndex(item => {
-      //인 수로 받은 city와 동일한 id를 가진 대상도시를 cities에서 찾아 그 id를 받아온다.
-      return item.uuid === city.uuid;
-    });
-    //console.log('index: ', index);
 ```      
    
 
@@ -130,7 +122,7 @@ const App = () => {
 - this.props.screenProps 를 통해 사용할수 있다.
    예) const {cities, addCity, addLocation} = this.props.screenProps;
    
-   
+
 ## 라이프사이클 메소드 shoudComponentUpdate 용법
 
 - 아래의 예와 같이 해당 컴퍼넌트의 state 또는 프롭스값을 선택하여 변경이 있을경우만 랜더링하도록 할 수 있다.

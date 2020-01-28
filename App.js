@@ -12,7 +12,7 @@ const App = () => {
     _loadFromStorage();
   }, []);
 
-  /////////////////////////////////////////////////// LOAD STATE(cities) FROM ASYNC STORAGE
+  /////////////////////////////////////////////////// FUNCTION OF LOAD STATE(cities) FROM ASYNC STORAGE
   const _loadFromStorage = async () => {
     try {
       const value = await AsyncStorage.getItem('CITIES');
@@ -26,7 +26,7 @@ const App = () => {
       console.log('loding was failed: ', error);
     }
   };
-  /////////////////////////////////////////////////// SAVE STATE(cities) TO ASYNC STORAGE
+  /////////////////////////////////////////////////// FUNCTION OF SAVE STATE(cities) TO ASYNC STORAGE
   const _saveToStorage = async _cities => {
     try {
       await AsyncStorage.setItem('CITIES', JSON.stringify(_cities));
@@ -35,7 +35,7 @@ const App = () => {
     }
   };
 
-  ///////////////////////////////////////////////// ADD CITY TO STATE AND ASYNC STORAGE
+  ///////////////////////////////////////////////// ADD CITY TO STATE AND SAVE TO ASYNC STORAGE
   const _addCity = city => {
     const _cities = cities;
     _cities.push(city);
@@ -43,15 +43,12 @@ const App = () => {
     _saveToStorage(_cities);
   };
 
-  ///////////////////////////////////////////////// 대상도시와 추가할 관광지를 인수로 받아서 해당도시에 관광지를 추가한다.
+  ///////////////////////////////////////////////// ADD TOURIST LOCATION IN CITY AND SAVE TO ASYNC STORAGE
   const _addLocation = (location, city) => {
     const index = cities.findIndex(item => {
       //인 수로 받은 city와 동일한 id를 가진 대상도시를 cities에서 찾아 그 id를 받아온다.
       return item.uuid === city.uuid;
     });
-    //console.log('index: ', index);
-
-    ////////////////////////////////////////////////
     const foundCity = cities[index];
     foundCity.locations.push(location); // 대상도시에 관광지를 추가한다.
     const _cities = [
