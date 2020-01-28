@@ -53,48 +53,6 @@ const Cities = ({screenProps, navigation}) => {
   );
 };
 
-// 아래는 클래스형 컴포넌트이며 정상적으로 실행됨: 맨아래 export default ... 부분은 중복되므로 삭제하여야함.
-// export default class Cities extends Component {
-//   static navigationOptions = {
-//     title: 'CITY LIST',
-//     headerTitleStyle: {
-//       fontSize: 18,
-//       color: 'black',
-//       fontWeight: '400',
-//       textAlign: 'center',
-//     },
-//   };
-
-//   _onMoveToCity = item => {
-//     console.log('onMoveToCity: ', this.props.navigation);
-//     this.props.navigation.navigate('City', {city: item});
-//   };
-
-//   render() {
-//     const {cities} = this.props.screenProps;
-//     console.log('Cities rendering', cities);
-//     console.log('screenProps in Cities', this.props.screenProps.cities);
-//     return (
-//       <ScrollView>
-//         <View style={styles.container}>
-//           {cities.map((item, index) => (
-//             <TouchableOpacity
-//               key={index}
-//               onPress={() => {
-//                 this._onMoveToCity(item);
-//               }}>
-//               <View style={styles.list}>
-//                 <Text style={styles.cityText}>{item.cityName}</Text>
-//                 <Text style={styles.countryText}>{item.countryName}</Text>
-//               </View>
-//             </TouchableOpacity>
-//           ))}
-//         </View>
-//       </ScrollView>
-//     );
-//   }
-// }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

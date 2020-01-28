@@ -6,13 +6,15 @@
 - Cities.js 를 함수형 컴퍼넌트로 리펙토링 완료함
 - City.js 를 함수형 컴퍼넌트로 리펙토링 완료함
 - App.js 를 함수형 컴퍼넌트로 리펙토링 완료함
-
+- asyncStorage 함수형에서 구현완료
 
 ## react-navigation 주요기능(함수형컴 컴퍼넌트)
 
 - 네비게이션을 이용하여 페이지 이동 및 프롭스를 전달
 - 함수형 컴퍼넌트로 변경함에 따라 네비게이션 사용에 this.props를 사용하지 않음
 - 함수형 컴퍼넌트의 경우 프롭스를 인자로 전달 받으므로 this.props... 형태로 사용할 필요없다.
+- componentDidMount 대신 useEffect 를 사용하여 asyncStorage 구현함
+- load 조건: 마운트될때만, save 조건: useState로 state값을 저장할때마다 asyncStorage에도 같이 저장
 ```js
 addCity = ({screenProps,navigation}){
   ...

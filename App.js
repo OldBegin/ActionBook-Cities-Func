@@ -1,24 +1,49 @@
 //import React, {Component} from 'react';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import AppNavi from './src';
 
 const App = () => {
-  console.log('App에 진입했음');
-  // useEffect(() => {
-  //   console.log('App 의 랜더링이 완료됨');
-  //   console.log('ciites ', cities);
-  // });
   const [cities, setCities] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
+  useEffect(() => {
+    _loadFromStorage();
+  }, []);
+
+  /////////////////////////////////////////////////// LOAD STATE(cities) FROM ASYNC STORAGE
+  const _loadFromStorage = async () => {
+    try {
+      const value = await AsyncStorage.getItem('CITIES');
+      if (value !== null) {
+        const parsedValue = JSON.parse(value);
+        setCities(parsedValue);
+        console.log('cities: ', parsedValue);
+      }
+      setIsLoaded(true);
+    } catch (error) {
+      console.log('loding was failed: ', error);
+    }
+  };
+  /////////////////////////////////////////////////// SAVE STATE(cities) TO ASYNC STORAGE
+  const _saveToStorage = async _cities => {
+    try {
+      await AsyncStorage.setItem('CITIES', JSON.stringify(_cities));
+    } catch (error) {
+      console.log('Save to storage was faild: ', error);
+    }
+  };
+
+  ///////////////////////////////////////////////// ADD CITY TO STATE AND ASYNC STORAGE
   const _addCity = city => {
-    console.log('city in _addCity: ', city);
     const _cities = cities;
     _cities.push(city);
     setCities(_cities);
+    _saveToStorage(_cities);
   };
 
-  // 대상도시와 추가할 관광지를 인수로 받아서 해당도시에 관광지를 추가한다.
+  ///////////////////////////////////////////////// 대상도시와 추가할 관광지를 인수로 받아서 해당도시에 관광지를 추가한다.
   const _addLocation = (location, city) => {
     const index = cities.findIndex(item => {
       //인 수로 받은 city와 동일한 id를 가진 대상도시를 cities에서 찾아 그 id를 받아온다.
@@ -26,6 +51,7 @@ const App = () => {
     });
     //console.log('index: ', index);
 
+    ////////////////////////////////////////////////
     const foundCity = cities[index];
     foundCity.locations.push(location); // 대상도시에 관광지를 추가한다.
     const _cities = [
@@ -34,8 +60,8 @@ const App = () => {
       ...cities.slice(index + 1),
     ];
     setCities(_cities);
+    _saveToStorage(_cities);
   };
-
   return (
     <AppNavi
       screenProps={{
