@@ -8,6 +8,7 @@
 - App.js 를 함수형 컴퍼넌트로 리펙토링 완료함
 - asyncStorage 함수형에서 구현완료
    
+
 ##  라이브러리 설치
 - react-navigation 4.x by Book
 ```js
@@ -16,6 +17,7 @@ yarn add uuid react-navigation react-navigation-stack react-navigation-tabs
 yarn add @react-native-community/async-storage //내장 async-storage 가 deprecated 되어 추후 따로 추가함.
 ```   
    
+
 ## 앱 구조
 
 src
@@ -29,6 +31,7 @@ src
 - theme.js
 App : 최상단 부모컴퍼넌트로서 라우터 컴퍼넌트인 <AppNavi />만을 랜더링하며, 이를통해 모든 라우터에 등록된 자식컴퍼넌트에 데이터나 메소드를 전달할수 있도록 한다.
    
+
    
 ## 각 컴퍼넌트의 역할
 - index.js: 네비게이션 설정
@@ -39,8 +42,7 @@ App : 최상단 부모컴퍼넌트로서 라우터 컴퍼넌트인 <AppNavi />�
 - CenterMessage: Cities 또는 City 의 내용이 없을때 보여주는 컴퍼넌트이다.
 - Theme: 앱 전체의 테마를 지정하는 스타일 컴퍼넌트이다.
    
-
-
+   
 ## react-navigation 주요기능(함수형컴 컴퍼넌트)
 
 - 네비게이션을 이용하여 페이지 이동 및 프롭스를 전달
@@ -61,7 +63,9 @@ addCity = ({screenProps,navigation}){
 // this.props.navigation.navigate('<라우팅위치>',{프롭스키:프롭스값}) // 의 두번째 인자로 프롭스를 전달할수 있다.
 // this.props.navigation.state.params // 를 이용하여 네비게이트의 두번째 인자로 전달된 프롭스값을 받는쪽에서 참조할수 있다... 
 ```      
-### asyncStorage 를 함수형 컴퍼넌트에서 사용   
+   
+  
+## asyncStorage 를 함수형 컴퍼넌트에서 사용   
 ```js
 const App = () => {
   const [cities, setCities] = useState([]);
@@ -111,6 +115,7 @@ const App = () => {
     //console.log('index: ', index);
 ```      
    
+
 ## 네비게이션을 사용하여 라우팅할 경우 최상단 부모컴퍼넌트에서는 (주로 App 컴퍼넌트) screenProps 를 통해 상태 및 메서드를 전달할 수있다.
 ```js
 <AppNavi  //라우터 컴퍼넌트
@@ -124,7 +129,8 @@ const App = () => {
 - 라우터컴퍼넌트(여기서는 .src/index.js)에 등록된 모든 컴퍼넌트는 이를 프롭스로 전달받으며,
 - this.props.screenProps 를 통해 사용할수 있다.
    예) const {cities, addCity, addLocation} = this.props.screenProps;
-
+   
+   
 ## 라이프사이클 메소드 shoudComponentUpdate 용법
 
 - 아래의 예와 같이 해당 컴퍼넌트의 state 또는 프롭스값을 선택하여 변경이 있을경우만 랜더링하도록 할 수 있다.
