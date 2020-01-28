@@ -75,7 +75,7 @@ const App = () => {
     _loadFromStorage();
   }, []);
 
-  /////////////////////////////////////////////////// FUNCTION OF LOAD STATE(cities) FROM ASYNC STORAGE
+  /////////////////////////////////////////////////// LOAD STATE(cities) FROM ASYNC STORAGE
   const _loadFromStorage = async () => {
     try {
       const value = await AsyncStorage.getItem('CITIES');
@@ -89,7 +89,7 @@ const App = () => {
       console.log('loding was failed: ', error);
     }
   };
-  /////////////////////////////////////////////////// FUNCTION OF SAVE STATE(cities) TO ASYNC STORAGE
+  /////////////////////////////////////////////////// SAVE STATE(cities) TO ASYNC STORAGE
   const _saveToStorage = async _cities => {
     try {
       await AsyncStorage.setItem('CITIES', JSON.stringify(_cities));
